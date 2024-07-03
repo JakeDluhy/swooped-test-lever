@@ -108,7 +108,7 @@ const fillResumeField = async (page: Page) => {
     // await solveHCaptchaCapSolver(page, userAgent);
     // console.log('completed');
     // await fillTextField(page, 'location', 'San Francisco, California, United States');
-    await page.waitForSelector('#location-0');
+    await page.waitForSelector('#location-0', { timeout: 3000 });
     await (await page.$('#location-0'))?.click();
     // await fillTextField(page, 'org', 'Dropbox');
 
@@ -120,6 +120,7 @@ const fillResumeField = async (page: Page) => {
     const screenshot = await page.screenshot({ fullPage: true });
     await uploadFile(`test-${+new Date()}.png`, screenshot);
   } catch (e) {
+    console.log(e)
     const screenshot = await page.screenshot({ fullPage: true });
     await uploadFile(`test-error-${+new Date()}.png`, screenshot);
   }
