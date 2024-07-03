@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "strict": true,
+    "sourceMap": true,
+    "target": "ES6",
+    "outDir": ".build",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2015"],
+    "rootDir": "./"
+  }
+}
