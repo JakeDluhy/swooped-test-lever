@@ -92,29 +92,39 @@ const fillResumeField = async (page: Page) => {
   console.log(userAgent);
   const page = await browser.newPage();
 
-  await page.goto(URL, { waitUntil: 'networkidle2' });
+  try {
+    await page.goto(URL, { waitUntil: 'networkidle2' });
 
-  await fillResumeField(page);
+    await fillResumeField(page);
 
-  await fillTextField(page, 'name', 'Lucy Lewis');
-  await fillTextField(page, 'email', 'lucylewis2121@gmail.com');
-  await fillTextField(page, 'phone', '123-456-7890');
-  await fillTextField(page, 'location', 'San Francisco, California, United States');
-  // await new Promise(r => setTimeout(r, 2000));
-  // console.log('solve');
-  // @ts-ignore
-  // await page.solveRecaptchas();
-  // await solveHCaptchaCapSolver(page, userAgent);
-  // console.log('completed');
-  // await fillTextField(page, 'location', 'San Francisco, California, United States');
-  await page.waitForSelector('#location-0');
-  await (await page.$('#location-0'))?.click();
-  // await fillTextField(page, 'org', 'Dropbox');
+    await fillTextField(page, 'name', 'Lucy Lewis');
+    await fillTextField(page, 'email', 'lucylewis2121@gmail.com');
+    await fillTextField(page, 'phone', '123-456-7890');
+    await fillTextField(page, 'location', 'San Francisco, California, United States');
+    // await new Promise(r => setTimeout(r, 2000));
+    // console.log('solve');
+    // @ts-ignore
+    // await page.solveRecaptchas();
+    // await solveHCaptchaCapSolver(page, userAgent);
+    // console.log('completed');
+    // await fillTextField(page, 'location', 'San Francisco, California, United States');
+    await page.waitForSelector('#location-0');
+    await (await page.$('#location-0'))?.click();
+    // await fillTextField(page, 'org', 'Dropbox');
 
-  // await fillTextField(page, 'cards[8712fc7d-cb80-44ca-80e5-072e11bb4c8e][field0]', '9');
-  // await fillTextField(page, 'cards[bda017a2-95ef-4b67-be83-02cd19713921][field0]', 'I think I would be really good.');
-  await fillRadioField(page, 'cards[06ee605b-ebc1-4b42-a3c5-d2f20b0e4c36][field0]');
-  await fillRadioField(page, 'cards[06ee605b-ebc1-4b42-a3c5-d2f20b0e4c36][field1]');
+    // await fillTextField(page, 'cards[8712fc7d-cb80-44ca-80e5-072e11bb4c8e][field0]', '9');
+    // await fillTextField(page, 'cards[bda017a2-95ef-4b67-be83-02cd19713921][field0]', 'I think I would be really good.');
+    await fillRadioField(page, 'cards[06ee605b-ebc1-4b42-a3c5-d2f20b0e4c36][field0]');
+    await fillRadioField(page, 'cards[06ee605b-ebc1-4b42-a3c5-d2f20b0e4c36][field1]');
+
+    const screenshot = await page.screenshot({ fullPage: true });
+    await uploadFile(`test-${+new Date()}.png`, screenshot);
+  } catch (e) {
+    const screenshot = await page.screenshot({ fullPage: true });
+    await uploadFile(`test-error-${+new Date()}.png`, screenshot);
+  }
+
+  await browser.close();
 
   // await (await page.$('#btn-submit'))?.click();
  })();
